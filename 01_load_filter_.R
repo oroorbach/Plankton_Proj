@@ -44,6 +44,8 @@ dat2 <- dat %>%
          result) %>%
   filter(station_code %in% c("GTMLMNUT", "GTMGRNUT"),
         !(component_short %in% c("WIND_D", "SECCHI")))
+
+
 # selecting out just the year fomr the time_date column so I can then add it to the staion-code column
 
 dat3 <- dat2 %>%
@@ -63,18 +65,46 @@ dat3$result <- as.numeric(dat3$result)
 
 ## selecting out the column I need  
 dat_wider <- dat3 %>%
-select(uniqq,
-       component_short,
-       result)
+  select(uniqq,
+         component_short,
+         result,
+         year) %>%
+  filter(year %in% c(2017, 2018, 2019, 2020))
 
 # widening data for gabby's formatting 
 plank_dat <- dat_wider %>%
   pivot_wider(names_from = "component_short",
-               values_from = "result")
+               values_from = "result") %>%
+  mutate(DIN = NH4F + NO23F,
+         DON = TKNF - NH4F,
+         PN = TN - (DIN + DON),
+         TN_TP = (TN/TP),
+         DIN_DIP = (DIN/PO4F))
+         
+
+plank_dat2 <- plank_dat %>%
+  select(uniqq,
+         SALT,
+         DO,
+         Turbidity,
+         WTEM,
+         TSS,
+         TP,
+         TN,
+         NO23F,
+         NH4F,
+         DON,
+         DIN,
+         PO4F,
+         PN,
+         TKN,
+         TKNF,
+         TN_TP,
+         DIN_DIP)
 
 
 # save as excel for Gabby to use in primer
-write_xlsx(plank_dat, "LM_GL4_Plank.xlsx")
+write_xlsx(plank_dat2, "LM_GR_Plank.xlsx")
 
 
 
