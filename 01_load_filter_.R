@@ -82,6 +82,8 @@ plank_dat <- dat_wider %>%
          DIN_DIP = (DIN/PO4F))
          
 
+#   STILL NEED DOC???
+
 plank_dat2 <- plank_dat %>%
   select(uniqq,
          SALT,
