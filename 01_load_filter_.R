@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 install.packages()
 ## setwd('C:/Users/roorbach_o/Documents/R/win-library/4.0')
+=======
+
+## setwd('C:/Users/roorbach_o/Documents/R/win-library/')
+>>>>>>> bc235fa699616481c312e54cba0fceaa803a72c0
 #### if you created the project right, here function should be able to find you #####
 
 library(readxl)
